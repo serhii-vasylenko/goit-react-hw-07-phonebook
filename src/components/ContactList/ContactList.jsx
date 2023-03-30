@@ -33,7 +33,7 @@ const ContactList = () => {
         isLoading === false &&
         error === null ? (
         <p>Contact with name '{filter}' not found</p>
-      ) : (
+      ) : (isLoading === false && error === null &&
         <ul>
           {filteredContacts.map(contact => {
             return <ContactListItem key={contact.id} contact={contact} />;
