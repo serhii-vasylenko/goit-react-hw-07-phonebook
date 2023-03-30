@@ -8,11 +8,7 @@ import Modal from 'components/Modal/Modal';
 import { Container, MainTitle, SubTitle } from './Dashboard.styled';
 import { Button } from 'components/ContactListItem/ContactListItem.styled';
 
-import { useLocalStorage } from 'hooks/useLocalStorage';
-import defaultValue from 'data/defaultValue';
-
 const Dashboard = () => {
-  // const [contacts, setContacts] = useLocalStorage('contacts', defaultValue);
   const [showModal, setShowModal] = useState(false);
 
 

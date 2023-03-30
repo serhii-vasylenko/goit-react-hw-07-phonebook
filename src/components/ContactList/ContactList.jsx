@@ -1,18 +1,30 @@
 import ContactListItem from 'components/ContactListItem/ContactListItem';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selectors';
+import {fetchContacts} from 'redux/operations';
+import { useEffect } from 'react';
 
 const ContactList = () => {
-  const contacts = useSelector(getContacts);
+  const { items, isLoading, error } = useSelector(getContacts);
+  const dispatch = useDispatch();
   const normalizedFilter = useSelector(getFilter).toLowerCase();
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter)
+  const filteredContacts = items.filter(item =>
+    item.name.toLowerCase().includes(normalizedFilter)
   );
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   return (
     <>
-      {contacts.length === 0 ? (
+      {isLoading && <p>Loading contacts...</p>}
+      {error && <p>{error}</p>}
+      {items.length === 0 && isLoading === false && error === null ? (
         <p>Phonebook is empty</p>
-      ) : filteredContacts.length === 0 ? (
+      ) : filteredContacts.length === 0 &&
+        isLoading === false &&
+        error === null ? (
         <p>Contact with name '{normalizedFilter}' not found</p>
       ) : (
         <ul>
