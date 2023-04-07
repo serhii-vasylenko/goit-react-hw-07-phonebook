@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
 
 import { Form, Label, Input, Button } from './ContactForm.styled';
+import { selectContacts } from 'redux/selectors';
 
 const ContactForm = ({onSubmit}) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const handleChange = ({ target }) => {
     const {name, number} = target.form.elements;
@@ -30,7 +31,7 @@ const ContactForm = ({onSubmit}) => {
     }
 
 
-    dispatch(addContact(name, number));
+    dispatch(addContact({name, number}));
     setName('');
     setNumber('');
     onSubmit();
