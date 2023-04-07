@@ -19,8 +19,17 @@ const ContactForm = ({onSubmit}) => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    
-    dispatch(addContact({name, number}));
+
+    const isMatch = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+    if (isMatch) {
+      alert(`${name} is already in contacts list!`);
+      return;
+    }
+
+
+    dispatch(addContact(name, number));
     setName('');
     setNumber('');
     onSubmit();
