@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
 
 import { Form, Label, Input, Button } from './ContactForm.styled';
@@ -10,6 +10,7 @@ const ContactForm = ({onSubmit}) => {
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
   const handleChange = ({ target }) => {
     const {name, number} = target.form.elements;
